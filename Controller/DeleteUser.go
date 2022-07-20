@@ -1,6 +1,7 @@
 package Controller
 
 import (
+	"cronService/Helpers"
 	"cronService/Models"
 	"cronService/Models/CRUD"
 	"github.com/gin-gonic/gin"
@@ -8,6 +9,17 @@ import (
 )
 
 func DeleteUserById(c *gin.Context){
+	jwttoken := c.Request.Header.Get("token")
+	user_name,flag:=Helpers.ValidateToken(jwttoken)
+
+	if !flag{
+		c.JSON(http.StatusUnauthorized, gin.H{"error":"cannot access with provided token"})
+		return
+	}
+	if !CRUD.AuthorizeAdmin(user_name) {
+		c.JSON(http.StatusForbidden, gin.H{"error":"unauthorized to Delete user"})
+	}
+
 	var user Models.User
 
 	id := c.Params.ByName("id")
