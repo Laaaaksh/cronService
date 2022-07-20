@@ -16,5 +16,5 @@ type CronExecutionResult struct {
 }
 
 func (ce *CronExecutionResult) TableName() string {
-	return "cron-execution-result"
+	return "cronexecutionresult"
 }
