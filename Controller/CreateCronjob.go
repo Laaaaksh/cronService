@@ -7,17 +7,16 @@ import (
 	"net/http"
 )
 
-func CreateUser(c * gin.Context){
-	var user Models.User
-
-	err := c.ShouldBindJSON(&user)
+func CreateCronjob(c *gin.Context){
+	var CronJob Models.CronJob
+	err := c.ShouldBindJSON(&CronJob)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"message": "Please provide valid details"})
 		return
 	}
 
-	if err := CRUD.CreateUser(&user); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"message": "Please use a different User Name"})
+	if err := CRUD.CreateCronjob(&CronJob); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"message":"Problem creating cronjob"})
 	} else {
 		c.JSON(http.StatusOK, gin.H{"message" : "success"})
 	}
