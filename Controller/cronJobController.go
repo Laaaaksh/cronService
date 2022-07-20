@@ -15,6 +15,8 @@ func ChangeCronJobStatusByID(c *gin.Context){
 	  	c.JSON(http.StatusNotFound, cronjob)
 	  }
 
+
+
 	  c.BindJSON(&cronjob)                         // else continue with changing the status
 	  err := Models.ChangeCronJobStatus(&cronjob)
 	  if err != nil {
