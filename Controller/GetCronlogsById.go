@@ -8,7 +8,7 @@ import (
 )
 
 func GetCronLogsById(c gin.Context){
-	var logs Models.CronJob
+	var logs Models.CronExecutionResult
 
 	Id := c.Params.ByName("id")
 	err := CRUD.GetCronLogsById(&logs,Id)

@@ -2,6 +2,7 @@ package Controller
 
 import (
 	"cronService/Helpers"
+	"cronService/Models"
 	"cronService/Models/CRUD"
 	"github.com/gin-gonic/gin"
 	"net/http"
