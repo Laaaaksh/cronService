@@ -19,6 +19,6 @@ func CreateUser(c * gin.Context){
 	if err := CRUD.CreateUser(&user); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"message": "Please use a different User Name"})
 	} else {
-		c.JSON(http.StatusOK, user)
+		c.JSON(http.StatusOK, gin.H{"message" : "success"})
 	}
 }
