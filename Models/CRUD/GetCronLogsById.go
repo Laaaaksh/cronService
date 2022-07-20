@@ -5,7 +5,7 @@ import (
 	"cronService/Models"
 )
 
-func GetCronLogs(logs *Models.CronJob, id string)(err error){
+func GetCronLogsById(logs *Models.CronJob, id string)(err error){
 	if err = Database.DB.Where( "id = ?", id).Find(&logs).Error; err!=nil{
 		return err
 	}

@@ -7,11 +7,11 @@ import (
 	"net/http"
 )
 
-func GetCronLogs(c gin.Context){
+func GetCronLogsById(c gin.Context){
 	var logs Models.CronJob
 
 	Id := c.Params.ByName("id")
-	err := CRUD.GetCronLogs(&logs,Id)
+	err := CRUD.GetCronLogsById(&logs,Id)
 	if err != nil{
 		c.JSON(http.StatusBadRequest, "Cron Job with the given id not found")
 	}else {
