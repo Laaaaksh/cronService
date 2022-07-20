@@ -12,5 +12,5 @@ type UserAuthentication struct {
 }
 
 func (ua *UserAuthentication) TableName() string {
-	return "user-authentication"
+	return "userauthentication"
 }
