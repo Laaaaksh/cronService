@@ -1,12 +1,12 @@
 package CRUD
 
 import (
-	"awesomeProject3/Config"
+	"cronService/Database"
 	"cronService/Models"
 )
 
 func UserPermissionTypes(permission *Models.PermissionType)(err error){
-	err = Config.DB.Create(permission).Error
+	err = Database.DB.Create(permission).Error
 	if err!=nil{
 		return err
 	}
