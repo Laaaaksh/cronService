@@ -3,7 +3,6 @@ package Controller
 import (
 	"cronService/Models"
 	"cronService/Models/CRUD"
-	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
