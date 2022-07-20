@@ -7,7 +7,7 @@ import (
 	"net/http"
 )
 
-func GetCronLogsById(c gin.Context){
+func GetCronLogsById(c *gin.Context){
 	var logs Models.CronExecutionResult
 
 	Id := c.Params.ByName("id")
