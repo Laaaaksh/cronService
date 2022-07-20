@@ -9,6 +9,7 @@ import (
 )
 
 func UserPermissionTypes(c *gin.Context){
+
 	var permission Models.PermissionType
 	c.BindJSON(&permission)
 	err:=CRUD.UserPermissionTypes(&permission)
