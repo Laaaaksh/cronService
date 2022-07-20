@@ -1,7 +1,6 @@
 package Controller
 
 import (
-	"cronService/Models"
 	"cronService/Models/CRUD"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
@@ -53,15 +52,15 @@ func UserLogin(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{"token":tokenString})
-
-	var  userToken Models.UserToken
-	userToken.UserName = creds.UserName
-	userToken.TokenCreationTime = time.Now().Unix()
-	userToken.TokenExpiryTime = expirationTime.Unix()
-	userToken.Token = tokenString
-
-	if err:= CRUD.CreateToken(&userToken); err != nil{
-		c.JSON(http.StatusBadRequest, gin.H{"error":err})
-		return
-	}
+	//
+	//var  userToken Models.UserToken
+	//userToken.UserName = creds.UserName
+	//userToken.TokenCreationTime = time.Now().Unix()
+	//userToken.TokenExpiryTime = expirationTime.Unix()
+	//userToken.Token = tokenString
+	//
+	//if err:= CRUD.CreateToken(&userToken); err != nil{
+	//	c.JSON(http.StatusBadRequest, gin.H{"error":err})
+	//	return
+	//}
 }
