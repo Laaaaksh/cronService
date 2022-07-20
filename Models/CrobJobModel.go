@@ -5,7 +5,7 @@ import (
 )
 
 type CronJob struct {
-	Id         int       `json:"_id"`
+	Id         int       `json:"id"`
 	Name       string    `json:"name"`
 	Expression string    `json:"expression"`
 	URL        string    `json:"url"`
