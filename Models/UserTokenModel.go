@@ -9,5 +9,5 @@ type UserToken struct {
 }
 
 func (ut *UserToken) TableName() string {
-	return "user-token"
+	return "usertoken"
 }
