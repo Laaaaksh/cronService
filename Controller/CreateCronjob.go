@@ -18,9 +18,9 @@ func CreateCronjob(c *gin.Context){
 		return
 	}
 
-	flag2:=Helpers.CheckPermission(user_name,"Add")
+	flag2:=Helpers.CheckPermission(user_name,"add", "Create")
 	if !flag2{
-		c.JSON(http.StatusUnauthorized, gin.H{"error":"cannot access cron logs"})
+		c.JSON(http.StatusUnauthorized, gin.H{"error":"you are not authorized to create a new cronjob"})
 		return
 	}
 	var CronJob Models.CronJob

@@ -13,4 +13,5 @@ func GetUserFromUserAuth(username string, user *Models.User) error{
 	if err:= Database.DB.Where("id = ?", userAuth.UserID).Find(&user).Error; err != nil{
 		return err
 	}
+	return nil
 }
