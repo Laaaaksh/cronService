@@ -2,7 +2,6 @@ package Controller
 
 import (
 	"cronService/Helpers"
-	"cronService/Models"
 	"cronService/Models/CRUD"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -18,7 +17,7 @@ type UserUserauth struct{
 func CreateUser(c * gin.Context){
 
 	jwttoken := c.Request.Header.Get("token")
-	user_name,flag:=Helpers.ValidateToken(jwttoken)
+	user_name,flag:= Helpers.ValidateToken(jwttoken)
 
 	if !flag{
 		c.JSON(http.StatusUnauthorized, gin.H{"error":"cannot access with provided token"})
