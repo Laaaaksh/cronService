@@ -6,7 +6,10 @@ import (
 )
 
 func DeleteUserById(user *Models.User,id string)(err error){
-	Database.DB.Where("id = ?", id).Delete(user)
+
+	if err=Database.DB.Where("id = ?", id).Delete(user).Error; err!=nil {
+		return err
+	}
 	return nil
 }
 
