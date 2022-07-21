@@ -12,7 +12,7 @@ func UserPermissionTypes(c *gin.Context){
 
 	var permission Models.PermissionType
 	c.BindJSON(&permission)
-	err:=CRUD.UserPermissionTypes(&permission)
+	err:= CRUD.UserPermissionTypes(&permission)
 	if err!=nil{
 		fmt.Println(err.Error())
 		c.JSON(http.StatusBadRequest,gin.H{"message":"failure"})
