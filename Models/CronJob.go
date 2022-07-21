@@ -1,8 +1,6 @@
 package Models
 
-
-
-
+import "cronService/Database"
 
 func ChangeCronJobStatus(cronjob *CronJob) (err error) {
 
@@ -11,14 +9,14 @@ func ChangeCronJobStatus(cronjob *CronJob) (err error) {
 	}else {
 		cronjob.Status=0
 	}
-	Config.DB.Save(cronjob)      // save
+	Database.DB.Save(cronjob)      // save
 
 	return nil
 }
 
 func UpdateCronJob(cronjob *CronJob) (err error){
 
-	Config.DB.Save(cronjob)
+	Database.DB.Save(cronjob)
 	return nil
 
 }
@@ -26,8 +24,6 @@ func UpdateCronJob(cronjob *CronJob) (err error){
 
 func DeleteCronJob(cronjob *CronJob, id string) (err error){
 
-
-
-	Config.DB.Where("id = ?", id).Delete(cronjob)
+	Database.DB.Where("id = ?", id).Delete(cronjob)
 	return nil
 }
