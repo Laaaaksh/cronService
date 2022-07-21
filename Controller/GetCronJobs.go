@@ -1,7 +1,6 @@
 package Controller
 
 import (
-	"cronService/Helpers"
 	"cronService/Models"
 	"cronService/Models/CRUD"
 	"github.com/gin-gonic/gin"
@@ -11,7 +10,7 @@ import (
 func GetCronJobs(c *gin.Context) {
 
 	jwttoken := c.Request.Header.Get("token")
-	user_name,flag:=Helpers.ValidateToken(jwttoken)
+	user_name,flag:= CRUD.ValidateToken(jwttoken)
 
 	if !flag{
 		c.JSON(http.StatusUnauthorized, gin.H{"error":"cannot access with provided token"})
@@ -30,7 +29,7 @@ func GetCronJobs(c *gin.Context) {
 
 func GetCronJobById(c *gin.Context){
 	jwttoken := c.Request.Header.Get("token")
-	user_name,flag:=Helpers.ValidateToken(jwttoken)
+	user_name,flag:= CRUD.ValidateToken(jwttoken)
 
 	if !flag{
 		c.JSON(http.StatusUnauthorized, gin.H{"error":"cannot access with provided token"})
@@ -39,7 +38,7 @@ func GetCronJobById(c *gin.Context){
 
 	id := c.Params.ByName("id")
 
-	if flag=Helpers.CheckPermission(user_name, "nil", id); !flag{
+	if flag= CRUD.CheckPermission(user_name, "nil", id); !flag{
 		c.JSON(http.StatusUnauthorized, gin.H{"error":"cannot access requested cronjob"})
 		return
 	}

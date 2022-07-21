@@ -2,7 +2,6 @@ package CRUD
 
 import (
 	"cronService/Database"
-	"cronService/Helpers"
 	"cronService/Models"
 	"time"
 )
@@ -15,7 +14,7 @@ func CreateCronjob(CronJob *Models.CronJob, username string) (err error)   {
 		return err
 	}
 	var user Models.User
-	if err := Helpers.GetUserFromUserAuth(username, &user); err!= nil{
+	if err := GetUserFromUserAuth(username, &user); err!= nil{
 		return err
 	}
 	Database.DB.Model(CronJob).Update(Models.CronJob{UserId:user.Id, CreatedAt: time.Now().Unix(), OrganizationId:user.OrganisationID})
