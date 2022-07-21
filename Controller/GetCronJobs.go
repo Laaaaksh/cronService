@@ -1,6 +1,7 @@
 package Controller
 
 import (
+	"cronService/Helpers"
 	"cronService/Models"
 	"cronService/Models/CRUD"
 	"github.com/gin-gonic/gin"
@@ -8,6 +9,15 @@ import (
 )
 
 func GetCronJobs(c *gin.Context) {
+
+	jwttoken := c.Request.Header.Get("token")
+	user_name,flag:=Helpers.ValidateToken(jwttoken)
+
+	if !flag{
+		c.JSON(http.StatusUnauthorized, gin.H{"error":"cannot access with provided token"})
+		return
+	}
+
 	var CronJobs []Models.CronJob
 
 	err := CRUD.GetCronJobs(&CronJobs)

@@ -6,12 +6,12 @@ import (
 	"cronService/Models"
 )
 
-func CreateUserType(userType *Models.PermissionUserType) (err error){
-	if err := Database.DB.Create(userType).Error; err != nil{
-		return err
-	}
-	return nil
-}
+//func CreateUserType(userType *Models.PermissionUserType) (err error){
+//	if err := Database.DB.Create(userType).Error; err != nil{
+//		return err
+//	}
+//	return nil
+//}
 
 func VerifyCredentials(cred Controller.Credentials) (flag bool){
 	var user Models.UserAuthentication

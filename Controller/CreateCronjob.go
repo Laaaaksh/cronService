@@ -9,6 +9,7 @@ import (
 )
 
 func CreateCronjob(c *gin.Context){
+
 	jwttoken := c.Request.Header.Get("token")
 	user_name,flag:=Helpers.ValidateToken(jwttoken)
 
@@ -16,6 +17,7 @@ func CreateCronjob(c *gin.Context){
 		c.JSON(http.StatusUnauthorized, gin.H{"error":"cannot access with provided token"})
 		return
 	}
+
 	flag2:=Helpers.CheckPermission(user_name,"Add")
 	if !flag2{
 		c.JSON(http.StatusUnauthorized, gin.H{"error":"cannot access cron logs"})
@@ -28,7 +30,7 @@ func CreateCronjob(c *gin.Context){
 		return
 	}
 
-	if err := CRUD.CreateCronjob(&CronJob); err != nil {
+	if err = CRUD.CreateCronjob(&CronJob, user_name); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"message":"Problem creating cronjob"})
 	} else {
 		c.JSON(http.StatusOK, gin.H{"message" : "success"})
