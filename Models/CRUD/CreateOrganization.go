@@ -1,13 +1,13 @@
 package CRUD
 
 import (
-	"cronService/Controller"
 	"cronService/Database"
 	"cronService/Models"
 	"time"
 )
 
-func CreateOrganization(orguser Controller.OrgUser)(err error){
+
+func CreateOrganization(orguser Models.OrgUser)(err error){
 	createdTime := time.Now().Unix()
 	org := Models.Organization{OrganisationName: orguser.OrganisationName, CreatedAt: createdTime}
 	if err := Database.DB.Create(&org).Error; err != nil{

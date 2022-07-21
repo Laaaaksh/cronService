@@ -1,7 +1,7 @@
 package CRUD
 
 import (
-	"cronService/Controller"
+	//"cronService/Controller"
 	"cronService/Database"
 	"cronService/Models"
 )
@@ -13,7 +13,7 @@ import (
 //	return nil
 //}
 
-func VerifyCredentials(cred Controller.Credentials) (flag bool){
+func VerifyCredentials(cred Models.Credentials) (flag bool){
 	var user Models.UserAuthentication
 	if err:= Database.DB.Where("user_name = ?", cred.UserName).Find(&user).Error; err != nil{
 		return false

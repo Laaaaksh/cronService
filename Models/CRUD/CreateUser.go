@@ -1,13 +1,12 @@
 package CRUD
 
 import (
-	"cronService/Controller"
 	"cronService/Database"
 	"cronService/Models"
 	"time"
 )
 
-func CreateUser(userauth * Controller.UserUserauth, id int) (err error) {
+func CreateUser(userauth * Models.UserUserauth, id int) (err error) {
 	createdTime := time.Now().Unix()
 	user := Models.User{UserType: "User", OrganisationID: id, FirstName: userauth.FirstName, CreatedAt: createdTime}
 
