@@ -1,7 +1,6 @@
 package Controller
 
 import (
-	"cronService/Helpers"
 	"cronService/Models"
 	"cronService/Models/CRUD"
 	"github.com/gin-gonic/gin"
@@ -10,7 +9,7 @@ import (
 
 func ChangeCronJobStatusByID(c *gin.Context){
 	jwttoken := c.Request.Header.Get("token")
-	user_name,flag:=Helpers.ValidateToken(jwttoken)
+	user_name,flag:= CRUD.ValidateToken(jwttoken)
 
 	if !flag{
 		c.JSON(http.StatusUnauthorized, gin.H{"error":"cannot access with provided token"})
@@ -24,9 +23,9 @@ func ChangeCronJobStatusByID(c *gin.Context){
 	c.BindJSON(&enable)
 	id := c.Params.ByName("id")
 	if enable.status == "enable"{
-		flag2 =Helpers.CheckPermission(user_name,"enable", id)
+		flag2 = CRUD.CheckPermission(user_name,"enable", id)
 	} else {
-		flag2 =Helpers.CheckPermission(user_name,"disable", id)
+		flag2 = CRUD.CheckPermission(user_name,"disable", id)
 	}
 	if !flag2{
 		c.JSON(http.StatusUnauthorized, gin.H{"error":"you are not authorized to enable/disbale a cronjob"})
@@ -55,14 +54,14 @@ func ChangeCronJobStatusByID(c *gin.Context){
 
 func UpdateCronJobByID(c *gin.Context){
 	jwttoken := c.Request.Header.Get("token")
-	user_name,flag:=Helpers.ValidateToken(jwttoken)
+	user_name,flag:= CRUD.ValidateToken(jwttoken)
 
 	if !flag{
 		c.JSON(http.StatusUnauthorized, gin.H{"error":"cannot access with provided token"})
 		return
 	}
 	id := c.Params.ByName("id")
-	if flag = Helpers.CheckPermission(user_name, "update", id); !flag{
+	if flag = CRUD.CheckPermission(user_name, "update", id); !flag{
 		c.JSON(http.StatusUnauthorized, gin.H{"error":"you are not authorized to update a cronjob"})
 		return
 	}
@@ -90,14 +89,14 @@ func UpdateCronJobByID(c *gin.Context){
 func DeleteCronJobByID(c * gin.Context){
 
 	jwttoken := c.Request.Header.Get("token")
-	user_name,flag:=Helpers.ValidateToken(jwttoken)
+	user_name,flag:= CRUD.ValidateToken(jwttoken)
 
 	if !flag{
 		c.JSON(http.StatusUnauthorized, gin.H{"error":"cannot access with provided token"})
 		return
 	}
 	id := c.Params.ByName("id")
-	if flag = Helpers.CheckPermission(user_name, "delete", id); !flag{
+	if flag = CRUD.CheckPermission(user_name, "delete", id); !flag{
 		c.JSON(http.StatusUnauthorized, gin.H{"error":"you are not authorized to delete a cronjob"})
 		return
 	}

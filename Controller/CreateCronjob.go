@@ -1,7 +1,6 @@
 package Controller
 
 import (
-	"cronService/Helpers"
 	"cronService/Models"
 	"cronService/Models/CRUD"
 	"github.com/gin-gonic/gin"
@@ -11,14 +10,14 @@ import (
 func CreateCronjob(c *gin.Context){
 
 	jwttoken := c.Request.Header.Get("token")
-	user_name,flag:=Helpers.ValidateToken(jwttoken)
+	user_name,flag:= CRUD.ValidateToken(jwttoken)
 
 	if !flag{
 		c.JSON(http.StatusUnauthorized, gin.H{"error":"cannot access with provided token"})
 		return
 	}
 
-	flag2:=Helpers.CheckPermission(user_name,"add", "Create")
+	flag2:= CRUD.CheckPermission(user_name,"add", "Create")
 	if !flag2{
 		c.JSON(http.StatusUnauthorized, gin.H{"error":"you are not authorized to create a new cronjob"})
 		return
