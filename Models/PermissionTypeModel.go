@@ -8,6 +8,7 @@ type PermissionType struct {
 	Update  bool   `json:"update"`
 	Enable  bool   `json:"enable"`
 	Disable bool   `json:"disable"`
+	Logs    bool   `json:"logs"`
 }
 
 func (pt *PermissionType) TableName() string {
