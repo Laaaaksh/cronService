@@ -18,11 +18,11 @@ func CreateCronjob(c *gin.Context){
 		return
 	}
 
-	if ok := Helpers.CheckPermission(user_name, "create"); !ok {
-		c.JSON(http.StatusUnauthorized, gin.H{"error":"You are not authorised to perform action"})
+	flag2:=Helpers.CheckPermission(user_name,"Add")
+	if !flag2{
+		c.JSON(http.StatusUnauthorized, gin.H{"error":"cannot access cron logs"})
 		return
 	}
-
 	var CronJob Models.CronJob
 	err := c.ShouldBindJSON(&CronJob)
 	if err != nil {
