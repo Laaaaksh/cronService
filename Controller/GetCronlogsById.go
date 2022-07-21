@@ -8,6 +8,7 @@ import (
 	"net/http"
 )
 
+
 func GetCronLogsById(c gin.Context){
 
 	jwttoken := c.Request.Header.Get("token")
@@ -17,7 +18,7 @@ func GetCronLogsById(c gin.Context){
 		c.JSON(http.StatusUnauthorized, gin.H{"error":"cannot access with provided token"})
 		return
 	}
-	flag2:=Helpers.CheckPermission(user_name,"Logs")
+	flag2:=Helpers.CheckPermission(user_name,"logs")
 	if !flag2{
 		c.JSON(http.StatusUnauthorized, gin.H{"error":"cannot access cron logs"})
 		return
@@ -28,8 +29,10 @@ func GetCronLogsById(c gin.Context){
 	err := CRUD.GetCronLogsById(&logs,Id)
 	if err != nil{
 		c.JSON(http.StatusBadRequest, "Cron Job with the given id not found")
+    return
 	}else {
 		c.JSON(http.StatusOK, logs)
+    return
 	}
 
 }
