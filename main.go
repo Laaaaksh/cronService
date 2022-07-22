@@ -1,10 +1,12 @@
 package main
 
 import (
+	"bytes"
 	//"bufio"
 	"cronService/Database"
 	"cronService/Models"
 	"cronService/Routes"
+	"encoding/json"
 	"github.com/gin-gonic/gin/binding"
 
 	//"encoding/json"
@@ -115,49 +117,46 @@ func main() {
 
 						}
 
-				//if cronjob.HttpMethod == "POST" {
-					resp, err1 := http.Post(cronjob.URL,"application/json",  binding.JSON(cronjob.PostData))
-				//	if err1 != nil {
-				//		newlog.Status = 1
-				//		newlog.Error = "can not execute"
-				//		newlog.ExecutionTime = time.Now()
-				//		newlog.Output = "can not execute the cronjob"
-				//		Database.DB.Save(newlog)
-				//
-				//		if cronjob.RetryCount <3 {
-				//			cronjob.NextTime = cronjob.NextTime.Add(time.Minute * 5)
-				//			cronjob.RetryCount +=1
-				//			Database.DB.Save(cronjob)
-				//		}else{
-				//			cronjob.RetryCount = 0
-				//			cronjob.NextTime = cronjob.NextTime.Add(time.Second * updatetime)
-				//			Database.DB.Save(cronjob)
-				//		}
-				//
-				//
-				//
-				//		//panic(err1)
-				//	}else{
-				//		newlog.Status = 0
-				//		newlog.ExecutionTime = time.Now()
-				//		newlog.Output = resp.Status
-				//		Database.DB.Save(newlog)
-				//
-				//		cronjob.NextTime = cronjob.NextTime.Add(time.Second * updatetime)
-				//		Database.DB.Save(cronjob)
-				//
-				//	}
-				//	//defer resp.Body.Close()
-				//	//fmt.Println("Response status:", resp.Status)
-				//	//scanner := bufio.NewScanner(resp.Body)
-				//	//for i := 0; scanner.Scan() && i < 5; i++ {
-				//	//	fmt.Println(scanner.Text())
-				//	//}
-				//	//if err := scanner.Err(); err != nil {
-				//	//	panic(err)
-				//	//}
-				//
-				//}
+				if cronjob.HttpMethod == "POST" {
+
+					postBody, _ := json.Marshal(cronjob.PostData)
+					responseBody := bytes.NewBuffer(postBody)
+
+					resp, err1 := http.Post(cronjob.URL, "application/json", responseBody)
+
+
+					if err1 != nil {
+						newlog.Status = 1
+						newlog.Error = "can not execute"
+						newlog.ExecutionTime = time.Now()
+						newlog.Output = "can not execute the cronjob"
+						Database.DB.Save(newlog)
+
+						if cronjob.RetryCount <3 {
+							cronjob.NextTime = cronjob.NextTime.Add(time.Minute * 5)
+							cronjob.RetryCount +=1
+							Database.DB.Save(cronjob)
+						}else{
+							cronjob.RetryCount = 0
+							cronjob.NextTime = cronjob.NextTime.Add(time.Second * updatetime)
+							Database.DB.Save(cronjob)
+						}
+
+
+
+						//panic(err1)
+					}else{
+						newlog.Status = 0
+						newlog.ExecutionTime = time.Now()
+						newlog.Output = resp.Status
+						Database.DB.Save(newlog)
+
+						cronjob.NextTime = cronjob.NextTime.Add(time.Second * updatetime)
+						Database.DB.Save(cronjob)
+
+					}
+
+				}
 
 
 
