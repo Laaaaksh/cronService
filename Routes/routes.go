@@ -31,6 +31,7 @@ func Setuprouter() *gin.Engine {
 	{
 		grp3.POST("/create-org/", Controller.CreateOrganization)
 		grp3.POST("/permission-type/", Controller.UserPermissionTypes)
+		grp3.GET("/get-permissions/", Controller.GetPermissions)
 
 	}
 
