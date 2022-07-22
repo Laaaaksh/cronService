@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-var jwtKey = []byte("my_secret_key")
+var jwtKey = []byte("sercrethatmaycontainch@r$32chars")
 
 
 

@@ -34,9 +34,13 @@ func CreateToken(usertoken *Models.UserToken) (err error) {
 func AuthorizeAdmin(user_name string) (flag bool){
 	var user Models.User
 
-	if err := Database.DB.Where("user_name = ?", user_name).Find(&user).Error; err != nil{
+	if err:= GetUserFromUserAuth(user_name, &user); err != nil{
 		return false
 	}
+
+	//if err := Database.DB.Where("user_name = ?", user_name).Find(&user).Error; err != nil{
+	//	return false
+	//}
 	if user.UserType != "Admin"{
 		return false
 	}
