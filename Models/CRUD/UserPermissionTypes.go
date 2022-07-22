@@ -5,7 +5,7 @@ import (
 	"cronService/Models"
 )
 
-func UserPermissionTypes(permission *Models.PermissionType)(err error){
+func CreatePermissions(permission *Models.PermissionType)(err error){
 	err = Database.DB.Create(permission).Error
 	if err!=nil{
 		return err

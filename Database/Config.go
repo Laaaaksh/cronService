@@ -21,7 +21,7 @@ func BuildDBConfig() *DBConfig {
 		Host:     "localhost",
 		Port:     3306,
 		User:     "root",
-		Password: "xxxx",
+		Password: "Dinesh@1234567890",
 		DBName:   "cronService",
 	}
 	return &dbConfig
