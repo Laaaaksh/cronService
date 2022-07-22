@@ -25,5 +25,7 @@ func UpdateUser(c *gin.Context){
 	err:=CRUD.UpdateUser(user);if err!=nil{
 		c.JSON(http.StatusBadRequest, gin.H{"error":"unable to update user"})
 		return
+	}else{
+		c.JSON(http.StatusOK, gin.H{"message":"updated user"})
 	}
 }

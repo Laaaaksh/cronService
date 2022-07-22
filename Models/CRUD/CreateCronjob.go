@@ -17,6 +17,10 @@ func CreateCronjob(CronJob *Models.CronJob, username string) (err error)   {
 	if err := GetUserFromUserAuth(username, &user); err!= nil{
 		return err
 	}
-	Database.DB.Model(CronJob).Update(Models.CronJob{UserId:user.Id, CreatedAt: time.Now().Unix(), OrganizationId:user.OrganisationID})
+	CronJob.CreatedAt = time.Now().Unix()
+	CronJob.UserId = user.Id
+	CronJob.OrganizationId = user.OrganisationID
+	Database.DB.Save(CronJob)
+	//Database.DB.Model(CronJob).Update(Models.CronJob{UserId:user.Id, CreatedAt: time.Now().Unix(),OrganizationId:user.OrganisationID})
 	return nil
 }
