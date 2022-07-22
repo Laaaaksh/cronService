@@ -8,7 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func UserPermissionTypes(c *gin.Context){
+func CreatePermissions(c *gin.Context){
 
 	jwttoken := c.Request.Header.Get("token")
 	user_name,flag:= CRUD.ValidateToken(jwttoken)
@@ -22,7 +22,7 @@ func UserPermissionTypes(c *gin.Context){
 	}
 	var permission Models.PermissionType
 	c.BindJSON(&permission)
-	err:=CRUD.UserPermissionTypes(&permission)
+	err:=CRUD.CreatePermissions(&permission)
 	if err!=nil{
 		fmt.Println(err.Error())
 		c.JSON(http.StatusBadRequest,gin.H{"message":"failure"})

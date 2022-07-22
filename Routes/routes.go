@@ -24,7 +24,7 @@ func Setuprouter() *gin.Engine {
 		grp2.POST("/create-user/", Controller.CreateUser)
 		grp2.POST("/login/", Controller.UserLogin)
 		grp2.DELETE("/delete/:id", Controller.DeleteUserById)
-		//grp2.POST("/user-type/", Controller.CreateUserTypes)
+		grp2.POST("/update-user/",Controller.UpdateUser)
 	}
 
 	grp3 := r.Group("/admin")
