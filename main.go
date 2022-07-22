@@ -6,16 +6,16 @@ import (
 	"cronService/Database"
 	"cronService/Models"
 	"cronService/Routes"
-	"encoding/json"
-	"github.com/gin-gonic/gin/binding"
+	"net/http"
+
+	//"github.com/gin-gonic/gin/binding"
 
 	//"encoding/json"
 	"fmt"
 	//"github.com/gin-gonic/gin/binding"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
-	//"go/scanner"
-	"net/http"
+
 	"time"
 )
 
@@ -48,12 +48,12 @@ func main() {
 	Database.DB.AutoMigrate(&Models.PermissionType{})
 	r := Routes.Setuprouter()
 	//running
-	infinityTime := time.Unix(1<<63-62135596801, 999999999)
+	infinityTime := time.Unix(1<<63-62135596801, 999999999).Unix()
 	fmt.Println(infinityTime)
-
+	r.Run(":8080")
 	for  {
 		var cronjobs []Models.CronJob
-		Database.DB.Where("next_time < ?", time.Now()).Find(&cronjobs)
+		Database.DB.Where("next_time < ?", time.Now().Unix()).Find(&cronjobs)
 		for _, cronjob := range cronjobs {
 
 			if cronjob.Status == 1 {
@@ -69,7 +69,7 @@ func main() {
 						newlog.CronJobId = cronjob.Id
 						newlog.URL = cronjob.URL
 						newlog.Time = cronjob.CreatedAt
-						newlog.StartTime = time.Now()
+						newlog.StartTime = time.Now().Unix()
 
 
 
@@ -78,17 +78,17 @@ func main() {
 							if err1 != nil {
 								newlog.Status = 1
 								newlog.Error = "can not execute"
-								newlog.ExecutionTime = time.Now()
+								newlog.ExecutionTime = time.Now().Unix()
 								newlog.Output = "can not execute the cronjob"
 								Database.DB.Save(newlog)
 
 								if cronjob.RetryCount <3 {
-									cronjob.NextTime = cronjob.NextTime.Add(time.Minute * 5)
+									cronjob.NextTime = cronjob.NextTime+60
 									cronjob.RetryCount +=1
 									Database.DB.Save(cronjob)
 								}else{
 									cronjob.RetryCount = 0
-									cronjob.NextTime = cronjob.NextTime.Add(time.Second * updatetime)
+									cronjob.NextTime = cronjob.NextTime
 									Database.DB.Save(cronjob)
 								}
 
@@ -163,14 +163,13 @@ func main() {
 
 
 
-            //fmt.Println(cronjob)
+           //fmt.Println(cronjob)
 
 
 			}
 
 		}
 	}
-	r.Run(":8080")
 
 
 }
