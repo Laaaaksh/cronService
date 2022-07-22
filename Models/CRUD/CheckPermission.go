@@ -1,9 +1,8 @@
-package Helpers
+package CRUD
 
 import (
 	"cronService/Database"
 	"cronService/Models"
-	"cronService/Models/CRUD"
 )
 
 func CheckPermission(userName string, permission string, jobID string) bool {
@@ -15,7 +14,7 @@ func CheckPermission(userName string, permission string, jobID string) bool {
 	}
 
 	if jobID != "Create"{
-		CRUD.GetCronJobById(&job,jobID )
+		GetCronJobById(&job,jobID )
 
 		if user.UserType == "Admin"{
 			if user.OrganisationID==job.OrganizationId{

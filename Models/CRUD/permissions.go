@@ -1,7 +1,7 @@
 package CRUD
 
 import (
-	"cronService/Controller"
+	//"cronService/Controller"
 	"cronService/Database"
 	"cronService/Models"
 )
@@ -13,7 +13,7 @@ import (
 //	return nil
 //}
 
-func VerifyCredentials(cred Controller.Credentials) (flag bool){
+func VerifyCredentials(cred Models.Credentials) (flag bool){
 	var user Models.UserAuthentication
 	if err:= Database.DB.Where("user_name = ?", cred.UserName).Find(&user).Error; err != nil{
 		return false
@@ -34,9 +34,13 @@ func CreateToken(usertoken *Models.UserToken) (err error) {
 func AuthorizeAdmin(user_name string) (flag bool){
 	var user Models.User
 
-	if err := Database.DB.Where("user_name = ?", user_name).Find(&user).Error; err != nil{
+	if err:= GetUserFromUserAuth(user_name, &user); err != nil{
 		return false
 	}
+
+	//if err := Database.DB.Where("user_name = ?", user_name).Find(&user).Error; err != nil{
+	//	return false
+	//}
 	if user.UserType != "Admin"{
 		return false
 	}

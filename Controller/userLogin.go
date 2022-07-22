@@ -1,6 +1,7 @@
 package Controller
 
 import (
+	"cronService/Models"
 	"cronService/Models/CRUD"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
@@ -8,24 +9,17 @@ import (
 	"time"
 )
 
-var jwtKey = []byte("my_secret_key")
+var jwtKey = []byte("sercrethatmaycontainch@r$32chars")
 
-type Credentials struct {
-	UserName string `json:"user_name" binding:"required"`
-	Password string `json:"password" binding:"required"`
-}
 
-type Claims struct {
-	UserName string `json:"user_name"`
-	jwt.StandardClaims
-}
 
 func UserLogin(c *gin.Context) {
-	var creds Credentials
+	var creds Models.Credentials
 	if err := c.ShouldBindJSON(&creds); err != nil{
 		c.JSON(http.StatusBadRequest, gin.H{"error":err.Error()})
 		return
 	}
+	//fmt.Println(creds)
 
 	if !CRUD.VerifyCredentials(creds) {
 		c.JSON(http.StatusUnauthorized, gin.H{"error":"invalid credentials"})
@@ -35,7 +29,7 @@ func UserLogin(c *gin.Context) {
 	expirationTime := time.Now().Add(5 * time.Minute)
 
 	// Create the JWT claims, which includes the username and expiry time
-	claims := &Claims{
+	claims := &Models.Claims{
 		UserName: creds.UserName,
 		StandardClaims: jwt.StandardClaims{
 			// In JWT, the expiry time is expressed as unix milliseconds

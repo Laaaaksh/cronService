@@ -1,4 +1,4 @@
-package Helpers
+package CRUD
 
 import (
 	"cronService/Database"

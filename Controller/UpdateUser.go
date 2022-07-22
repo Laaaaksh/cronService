@@ -3,29 +3,27 @@ package Controller
 import (
 	"cronService/Models"
 	"cronService/Models/CRUD"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
-func DeleteUserById(c *gin.Context){
+func UpdateUser(c *gin.Context){
 	jwttoken := c.Request.Header.Get("token")
 	user_name,flag:= CRUD.ValidateToken(jwttoken)
-
+	fmt.Println(jwttoken)
 	if !flag{
 		c.JSON(http.StatusUnauthorized, gin.H{"error":"cannot access with provided token"})
 		return
 	}
 	if !CRUD.AuthorizeAdmin(user_name) {
-		c.JSON(http.StatusForbidden, gin.H{"error":"unauthorized to Delete user"})
+		c.JSON(http.StatusForbidden, gin.H{"error":"unauthorized to create user"})
+		return
 	}
-
 	var user Models.User
-
-	id := c.Params.ByName("id")
-	err := CRUD.DeleteUserById(&user, id)
-	if err != nil {
-		c.AbortWithStatus(http.StatusNotFound)
-	} else {
-		c.JSON(http.StatusOK, gin.H{"id" + id: "is deleted"})
+	c.BindJSON(&user)
+	err:=CRUD.UpdateUser(user);if err!=nil{
+		c.JSON(http.StatusBadRequest, gin.H{"error":"unable to update user"})
+		return
 	}
 }

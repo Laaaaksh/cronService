@@ -2,7 +2,6 @@ package CRUD
 
 import (
 	"cronService/Database"
-	"cronService/Helpers"
 	"cronService/Models"
 )
 
@@ -13,7 +12,7 @@ func GetCronJobs(CronJobs *[]Models.CronJob,username string) (err error) {
 
 	var user Models.User
 
-	if err:= Helpers.GetUserFromUserAuth(username, &user); err != nil{
+	if err:= GetUserFromUserAuth(username, &user); err != nil{
 		return err
 	}
 	if user.UserType == "Admin"{
