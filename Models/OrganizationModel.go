@@ -11,6 +11,7 @@ type OrgUser struct {
 	AdminUserName    string `json:"admin_user_name" binding:"required" gorm:"unique"`
 	Password         string `json:"password" binding:"required"`
 }
+
 func (o *Organization) TableName() string {
 	return "organization"
 }

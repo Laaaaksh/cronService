@@ -5,11 +5,10 @@ import (
 	"cronService/Models"
 )
 
-func GetPermissions(permissions *[]Models.PermissionType)(err error){
+func GetPermissions(permissions *[]Models.PermissionType) (err error) {
 	err = Database.DB.Find(permissions).Error
-	if err!=nil{
+	if err != nil {
 		return err
 	}
 	return nil
 }
-

@@ -17,14 +17,15 @@ func Setuprouter() *gin.Engine {
 		grp1.POST("/edit/:id", Controller.UpdateCronJobByID)
 		grp1.DELETE("/delete/:id", Controller.DeleteCronJobByID)
 		grp1.GET("/get-all-cronjobs", Controller.GetCronJobs)
-		grp1.GET("/get-cronjob/:id", Controller.GetCronLogsById)
+		grp1.GET("/get-cronjob/:id", Controller.GetCronJobById)
+		grp1.GET("/get-cronlogs/:id", Controller.GetCronLogsById)
 	}
 	grp2 := r.Group("/user")
 	{
 		grp2.POST("/create-user/", Controller.CreateUser)
 		grp2.POST("/login/", Controller.UserLogin)
 		grp2.DELETE("/delete/:id", Controller.DeleteUserById)
-		grp2.POST("/update-user/",Controller.UpdateUser)
+		grp2.POST("/update-user/", Controller.UpdateUser)
 	}
 
 	grp3 := r.Group("/admin")
@@ -32,7 +33,6 @@ func Setuprouter() *gin.Engine {
 		grp3.POST("/create-org/", Controller.CreateOrganization)
 		grp3.POST("/create-permission/", Controller.CreatePermissions)
 		grp3.GET("/get-permissions/", Controller.GetPermissions)
-
 	}
 
 	return r

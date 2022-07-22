@@ -11,18 +11,16 @@ import (
 
 var jwtKey = []byte("sercrethatmaycontainch@r$32chars")
 
-
-
 func UserLogin(c *gin.Context) {
 	var creds Models.Credentials
-	if err := c.ShouldBindJSON(&creds); err != nil{
-		c.JSON(http.StatusBadRequest, gin.H{"error":err.Error()})
+	if err := c.ShouldBindJSON(&creds); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 	//fmt.Println(creds)
 
 	if !CRUD.VerifyCredentials(creds) {
-		c.JSON(http.StatusUnauthorized, gin.H{"error":"invalid credentials"})
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "invalid credentials"})
 		return
 	}
 
@@ -45,7 +43,7 @@ func UserLogin(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"token":tokenString})
+	c.JSON(http.StatusOK, gin.H{"token": tokenString})
 	//
 	//var  userToken Models.UserToken
 	//userToken.UserName = creds.UserName
