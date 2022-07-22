@@ -5,7 +5,7 @@ import (
 )
 
 type CronExecutionResult struct {
-	CronJobId     string    `json:"cron_job_id"`
+	CronJobId     int    `json:"cron_job_id"`
 	URL           string    `json:"url"`
 	Output        string    `json:"output"`
 	Error         string    `json:"error"`

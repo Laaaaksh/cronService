@@ -30,7 +30,7 @@ func Setuprouter() *gin.Engine {
 	grp3 := r.Group("/admin")
 	{
 		grp3.POST("/create-org/", Controller.CreateOrganization)
-		grp3.POST("/permission-type/", Controller.CreatePermissions)
+		grp3.POST("/create-permission/", Controller.UserPermissionTypes)
 		grp3.GET("/get-permissions/", Controller.GetPermissions)
 
 	}
