@@ -16,9 +16,9 @@ func GetCronJobs(CronJobs *[]Models.CronJob,username string) (err error) {
 		return err
 	}
 	if user.UserType == "Admin"{
-		err = Database.DB.Where("OrganizationId = ?", user.OrganisationID).Find(CronJobs).Error
+		err = Database.DB.Where("organization_id = ?", user.OrganisationID).Find(CronJobs).Error
 	}else {
-		err = Database.DB.Where("UserId = ?", user.Id).Find(CronJobs).Error
+		err = Database.DB.Where("user_id = ?", user.Id).Find(CronJobs).Error
 	}
 	if err != nil {
 		return err

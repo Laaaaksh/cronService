@@ -23,7 +23,7 @@ func GetCronJobs(c *gin.Context) {
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"message":"Problem getting cronjob"})
 	} else {
-		c.JSON(http.StatusOK, gin.H{"message" : "success"})
+		c.JSON(http.StatusOK, CronJobs)
 	}
 }
 
@@ -45,5 +45,7 @@ func GetCronJobById(c *gin.Context){
 	var job Models.CronJob
 	if err:= CRUD.GetCronJobById(&job,id); err!= nil{
 		c.JSON(http.StatusBadRequest, gin.H{"error":err.Error()})
+	}else{
+		c.JSON(http.StatusOK,job)
 	}
 }
