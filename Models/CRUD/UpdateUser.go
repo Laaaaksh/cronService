@@ -6,10 +6,11 @@ import (
 	"time"
 )
 
-func UpdateUser(user Models.User)(err error){
+func UpdateUser(user Models.User) (err error) {
 	var user_new Models.User
 
-	err=Database.DB.Find(&user_new,"id=?",user.Id).Error;if err!=nil{
+	err = Database.DB.Find(&user_new, "id=?", user.Id).Error
+	if err != nil {
 		return err
 	}
 	user_new.PermissionID = user.PermissionID

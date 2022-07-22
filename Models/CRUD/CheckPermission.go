@@ -9,17 +9,17 @@ func CheckPermission(userName string, permission string, jobID string) bool {
 
 	var user Models.User
 	var job Models.CronJob
-	if err := GetUserFromUserAuth(userName, &user); err != nil{
+	if err := GetUserFromUserAuth(userName, &user); err != nil {
 		return false
 	}
 
-	if jobID != "Create"{
-		GetCronJobById(&job,jobID )
+	if jobID != "Create" {
+		GetCronJobById(&job, jobID)
 
-		if user.UserType == "Admin"{
-			if user.OrganisationID==job.OrganizationId{
+		if user.UserType == "Admin" {
+			if user.OrganisationID == job.OrganizationId {
 				return true
-			}else{
+			} else {
 				return false
 			}
 		}
@@ -27,49 +27,49 @@ func CheckPermission(userName string, permission string, jobID string) bool {
 			return false
 		}
 	}
-	if user.UserType == "Admin"{
-			return true
+	if user.UserType == "Admin" {
+		return true
 	}
 
 	var permissionType Models.PermissionType
-	if err := Database.DB.Where("id = ?", user.PermissionID).Find(&permissionType).Error; err != nil{
+	if err := Database.DB.Where("id = ?", user.PermissionID).Find(&permissionType).Error; err != nil {
 		return false
 	}
 
-	if permission == "delete"{
+	if permission == "delete" {
 		if permissionType.Delete {
 			return true
-		}else {
+		} else {
 			return false
 		}
-	}else if permission == "add"{
+	} else if permission == "add" {
 		if permissionType.Add {
 			return true
-		}else {
+		} else {
 			return false
 		}
-	}else if permission == "update"{
+	} else if permission == "update" {
 		if permissionType.Update {
 			return true
-		}else {
+		} else {
 			return false
 		}
-	}else if permission == "disable"{
+	} else if permission == "disable" {
 		if permissionType.Disable {
 			return true
-		}else {
+		} else {
 			return false
 		}
-	}else if permission == "enable"{
+	} else if permission == "enable" {
 		if permissionType.Enable {
 			return true
-		}else {
+		} else {
 			return false
 		}
-	}else if permission == "logs"{
+	} else if permission == "logs" {
 		if permissionType.Logs {
 			return true
-		}else {
+		} else {
 			return false
 		}
 	}
