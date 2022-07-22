@@ -5,11 +5,10 @@ import (
 	"cronService/Models"
 )
 
-func DeleteUserById(user *Models.User,id string)(err error){
+func DeleteUserById(user *Models.User, id string) (err error) {
 
-	if err=Database.DB.Where("id = ?", id).Delete(user).Error; err!=nil {
+	if err = Database.DB.Where("id = ?", id).Delete(user).Error; err != nil {
 		return err
 	}
 	return nil
 }
-

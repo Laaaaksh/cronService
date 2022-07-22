@@ -25,26 +25,26 @@ import (
 
 var err error
 
-func extractTime(expression string)int64 {
+func extractTime(expression string) int64 {
 
 	var nextTime int
-	if len(expression)<10{
+	if len(expression) < 10 {
 		//print("hey")
 		return 10000000
 	}
-	for i:=0; i<5;i++{
-		if i<3 {
+	for i := 0; i < 5; i++ {
+		if i < 3 {
 			temp, _ := strconv.Atoi(expression[2*i : 2*(i+1)])
 			nextTime += temp * (int(math.Pow(60, float64(i))))
 			continue
 		}
-		if i==3 {
+		if i == 3 {
 			temp, _ := strconv.Atoi(expression[2*i : 2*(i+1)])
-			nextTime += temp * 3600*24
+			nextTime += temp * 3600 * 24
 		}
-		if i==4{
+		if i == 4 {
 			temp, _ := strconv.Atoi(expression[2*i : 2*(i+1)])
-			nextTime += temp * 3600*24*30
+			nextTime += temp * 3600 * 24 * 30
 		}
 	}
 	return int64(nextTime)
@@ -162,6 +162,5 @@ func main() {
 	r := Routes.Setuprouter()
 	//running
 	r.Run(":8080")
-
 
 }

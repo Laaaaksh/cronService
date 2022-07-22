@@ -5,7 +5,7 @@ type CronJob struct {
 	Name           string `json:"name"`
 	Expression     string `json:"expression"`
 	URL            string `json:"url"`
-	NextTime       int64 `json:"next_time"`
+	NextTime       int64  `json:"next_time"`
 	HttpMethod     string `json:"http_method"`
 	HttpHeader     string `json:"http_header"`
 	PostData       string `json:"post_data"`
@@ -13,8 +13,8 @@ type CronJob struct {
 	UserId         int    `json:"user_id"`
 	OrganizationId int    `json:"organization_id"`
 	Status         int    `json:"status"`
-	CreatedAt      int64 `json:"created_at"`
-	UpdatedAT      int64 `json:"updated_at"`
+	CreatedAt      int64  `json:"created_at"`
+	UpdatedAT      int64  `json:"updated_at"`
 }
 
 func (cj *CronJob) TableName() string {
