@@ -18,7 +18,8 @@ func GetPermissions(c *gin.Context){
 		return
 	}
 	if !CRUD.AuthorizeAdmin(user_name) {
-		c.JSON(http.StatusForbidden, gin.H{"error":"unauthorized to create Permission group"})
+		c.JSON(http.StatusForbidden, gin.H{"error":"unauthorized to view permission groups"})
+		return
 	}
 	var permissions []Models.PermissionType
 	err:=CRUD.GetPermissions(&permissions)
