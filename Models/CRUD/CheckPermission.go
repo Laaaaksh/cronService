@@ -27,6 +27,9 @@ func CheckPermission(userName string, permission string, jobID string) bool {
 			return false
 		}
 	}
+	if user.UserType == "Admin"{
+			return true
+	}
 
 	var permissionType Models.PermissionType
 	if err := Database.DB.Where("id = ?", user.PermissionID).Find(&permissionType).Error; err != nil{

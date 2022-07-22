@@ -17,7 +17,8 @@ func Setuprouter() *gin.Engine {
 		grp1.POST("/edit/:id", Controller.UpdateCronJobByID)
 		grp1.DELETE("/delete/:id", Controller.DeleteCronJobByID)
 		grp1.GET("/get-all-cronjobs", Controller.GetCronJobs)
-		grp1.GET("/get-cronjob/:id", Controller.GetCronLogsById)
+		grp1.GET("/get-cronjob/:id", Controller.GetCronJobById)
+		grp1.GET("/get-cronlogs/:id", Controller.GetCronLogsById)
 	}
 	grp2 := r.Group("/user")
 	{
