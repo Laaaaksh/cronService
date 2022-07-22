@@ -1,7 +1,7 @@
 package Models
 
 type PermissionType struct {
-	Id      int    `json:"_id"`
+	Id      int    `json:"id"`
 	Name    string `json:"name"`
 	Add     bool   `json:"add"`
 	Delete  bool   `json:"delete"`
